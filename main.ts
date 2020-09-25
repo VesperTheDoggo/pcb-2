@@ -30,18 +30,8 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
         mr_goose.setPosition(140, 15)
     }
 })
-sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, otherSprite) {
-    sprite.destroy()
-    otherSprite.setPosition(80, 100)
-    otherSprite.x += randint(-2, 2) * 30
-    otherSprite.y = 120
-    info.changeScoreBy(1)
-})
 let poop: Sprite = null
 let mr_goose: Sprite = null
-let normieDeath = 0
-let virginDeaths = 0
-let chadDeaths = 0
 scene.setBackgroundImage(img`
     777777777777777777777777777777777dddddddddddddddddffffffffffffffffffffffffffffffffffffffffffffffffddddddddddddddddddd7777777774444477777777777777777777777777777
     777777777777777777777777777777777dddddddddddddddddffffffffffffffffffffffffffffffffffffffffffffffffddddddddddddddddddd7777777774444477777777777777777777777777777
@@ -164,66 +154,6 @@ scene.setBackgroundImage(img`
     777777777777777777777777777777777dddddddddddddddddfffffffffffffffffffff55555ffffffffffffffffffffffddddddddddddddddddd7777777777777777777777777777777777777777777
     777777777777777777777777777777777dddddddddddddddddfffffffffffffffffffff55555ffffffffffffffffffffffddddddddddddddddddd7777777777777777777777777777777777777777777
     `)
-let chad2 = sprites.create(img`
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . 5 5 5 5 5 5 5 . . . . . 
-    . . . . 5 d d d d d 5 . . . . . 
-    . . . . 5 d f d f d 5 . . . . . 
-    . . . . d d d d d d d . . . . . 
-    . . . . . d d d d d . . . . . . 
-    . . . . 6 7 7 7 7 7 6 . . . . . 
-    . . . . 6 7 2 2 2 7 6 . . . . . 
-    . . . . 6 7 7 7 7 7 6 . . . . . 
-    . . . . d 8 8 8 8 8 d . . . . . 
-    . . . . . 8 8 8 8 8 . . . . . . 
-    . . . . . f f . f f . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    `, SpriteKind.Enemy)
-let virgin2 = sprites.create(img`
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . e e e e e e e e . . . . 
-    . . . . e e d d e d e e . . . . 
-    . . . . e d d d d d d e . . . . 
-    . . . . d d f d d f d d . . . . 
-    . . . . . d d d d d d . . . . . 
-    . . . . a b b b b b b a . . . . 
-    . . . . a b b b b b b a . . . . 
-    . . . . a b b b b b b a . . . . 
-    . . . . a b b b b b b a . . . . 
-    . . . . d c c c c c c d . . . . 
-    . . . . . c c c c c c . . . . . 
-    . . . . . f f . . f f . . . . . 
-    `, SpriteKind.Enemy)
-let normies2 = sprites.create(img`
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . f f f . . . . . . . 
-    . . . . f f f f f f f . . . . . 
-    . . . . f f f f f f f . . . . . 
-    . . . . f d d d d d f . . . . . 
-    . . . . d d f d f d d . . . . . 
-    . . . . . d d d d d . . . . . . 
-    . . . . 8 6 6 6 6 6 8 . . . . . 
-    . . . . 8 6 6 6 6 6 8 . . . . . 
-    . . . . 8 6 8 8 8 6 8 . . . . . 
-    . . . . 8 6 6 6 6 6 8 . . . . . 
-    . . . . d e e e e e d . . . . . 
-    . . . . . e e e e e . . . . . . 
-    . . . . . f f . f f . . . . . . 
-    `, SpriteKind.Enemy)
-normies2.setPosition(80, 130)
-virgin2.setPosition(80, 130)
-chad2.setPosition(80, 130)
-chad2.x += randint(-2, 2) * 30
-virgin2.x += randint(-2, 2) * 30
-normies2.x += randint(-2, 2) * 30
 mr_goose = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
@@ -334,52 +264,21 @@ let poop_bazuka = sprites.create(img`
     `, SpriteKind.Projectile)
 poop.destroy()
 poop_bazuka.destroy()
+virgin.y = 100
 mr_goose.setPosition(80, 15)
-normies.setPosition(80, 130)
-virgin.setPosition(80, 130)
-chad.setPosition(80, 130)
+normies.setPosition(80, 100)
+virgin.setPosition(80, 100)
+chad.setPosition(80, 100)
+let chadDeaths = 0
+let virginDeaths = 0
+let normieDeath = 0
 chad.x += randint(-2, 2) * 30
-virgin.x += randint(-2, 2) * 30
-normies.x += randint(-2, 2) * 30
-info.setScore(0)
 forever(function () {
-    pause(5000)
-    chad.setVelocity(0, -10)
-    if (chad.y == 15) {
-        game.over(false, effects.blizzard)
-    }
+	
 })
 forever(function () {
-    pause(2000)
-    normies.setVelocity(0, -10)
-    if (normies.y == 15) {
-        game.over(false, effects.blizzard)
-    }
+	
 })
 forever(function () {
-    virgin.setVelocity(0, -10)
-    if (virgin.y == 15) {
-        game.over(false, effects.blizzard)
-    }
-})
-forever(function () {
-    pause(10000)
-    chad2.setVelocity(0, -10)
-    if (chad2.y == 15) {
-        game.over(false, effects.blizzard)
-    }
-})
-forever(function () {
-    pause(7500)
-    normies2.setVelocity(0, -10)
-    if (normies2.y == 15) {
-        game.over(false, effects.blizzard)
-    }
-})
-forever(function () {
-    pause(5000)
-    virgin2.setVelocity(0, -10)
-    if (virgin2.y == 15) {
-        game.over(false, effects.blizzard)
-    }
+	
 })
