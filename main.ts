@@ -33,7 +33,7 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, otherSprite) {
     virgin.destroy()
 })
-let enemyIndex = 0
+let enemyIndex2 = 0
 let poop: Sprite = null
 let virgin: Sprite = null
 let mr_goose: Sprite = null
@@ -322,16 +322,16 @@ let poop_bazuka = sprites.create(img`
 mr_goose.y = 15
 virgin.y = 100
 game.onUpdateInterval(1000, function () {
-    enemyIndex = randint(0, 2)
-    for (let enemyIndex of enemyArray) {
-        enemyIndex.x = randint(-2, 2) * 30
-        if (enemyIndex.x >= 140) {
-            enemyIndex.setPosition(140, 100)
+    enemyIndex2 = randint(0, 2)
+    for (let enemyIndex22 of enemyArray) {
+        enemyIndex22.x = randint(-2, 2) * 30
+        if (enemyIndex22.x >= 140) {
+            enemyIndex22.setPosition(140, enemyIndex22.y)
         }
-        if (enemyIndex.x <= 20) {
-            enemyIndex.setPosition(20, 100)
+        if (enemyIndex22.x <= 20) {
+            enemyIndex22.setPosition(20, enemyIndex22.y)
         }
-        enemyIndex.setVelocity(0, -30)
+        enemyIndex22.setVelocity(0, -30)
     }
 })
 game.onUpdateInterval(1000, function () {
