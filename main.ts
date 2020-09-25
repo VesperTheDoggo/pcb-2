@@ -30,14 +30,11 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
         mr_goose.setPosition(140, 15)
     }
 })
-sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, otherSprite) {
-    virgin.destroy()
-})
 let enemyIndex2 = 0
+let chad2: Sprite = null
 let poop: Sprite = null
-let virgin: Sprite = null
 let mr_goose: Sprite = null
-let enemyArray = [sprites.create(img`
+let chadArray = [sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
@@ -59,6 +56,41 @@ let enemyArray = [sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
+    . . . . 5 5 5 5 5 5 5 . . . . . 
+    . . . . 5 d d d d d 5 . . . . . 
+    . . . . 5 d f d f d 5 . . . . . 
+    . . . . d d d d d d d . . . . . 
+    . . . . . d d d d d . . . . . . 
+    . . . . 6 7 7 7 7 7 6 . . . . . 
+    . . . . 6 7 2 2 2 7 6 . . . . . 
+    . . . . 6 7 7 7 7 7 6 . . . . . 
+    . . . . d 8 8 8 8 8 d . . . . . 
+    . . . . . 8 8 8 8 8 . . . . . . 
+    . . . . . f f . f f . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    `, SpriteKind.Enemy), sprites.create(img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . 5 5 5 5 5 5 5 . . . . . 
+    . . . . 5 d d d d d 5 . . . . . 
+    . . . . 5 d f d f d 5 . . . . . 
+    . . . . d d d d d d d . . . . . 
+    . . . . . d d d d d . . . . . . 
+    . . . . 6 7 7 7 7 7 6 . . . . . 
+    . . . . 6 7 2 2 2 7 6 . . . . . 
+    . . . . 6 7 7 7 7 7 6 . . . . . 
+    . . . . d 8 8 8 8 8 d . . . . . 
+    . . . . . 8 8 8 8 8 . . . . . . 
+    . . . . . f f . f f . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    `, SpriteKind.Enemy)]
+let virginArray = [sprites.create(img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
     . . . . e e e e e e e e . . . . 
     . . . . e e d d e d e e . . . . 
     . . . . e d d d d d d e . . . . 
@@ -71,6 +103,75 @@ let enemyArray = [sprites.create(img`
     . . . . d c c c c c c d . . . . 
     . . . . . c c c c c c . . . . . 
     . . . . . f f . . f f . . . . . 
+    `, SpriteKind.Enemy), sprites.create(img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . e e e e e e e e . . . . 
+    . . . . e e d d e d e e . . . . 
+    . . . . e d d d d d d e . . . . 
+    . . . . d d f d d f d d . . . . 
+    . . . . . d d d d d d . . . . . 
+    . . . . a b b b b b b a . . . . 
+    . . . . a b b b b b b a . . . . 
+    . . . . a b b b b b b a . . . . 
+    . . . . a b b b b b b a . . . . 
+    . . . . d c c c c c c d . . . . 
+    . . . . . c c c c c c . . . . . 
+    . . . . . f f . . f f . . . . . 
+    `, SpriteKind.Enemy), sprites.create(img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . e e e e e e e e . . . . 
+    . . . . e e d d e d e e . . . . 
+    . . . . e d d d d d d e . . . . 
+    . . . . d d f d d f d d . . . . 
+    . . . . . d d d d d d . . . . . 
+    . . . . a b b b b b b a . . . . 
+    . . . . a b b b b b b a . . . . 
+    . . . . a b b b b b b a . . . . 
+    . . . . a b b b b b b a . . . . 
+    . . . . d c c c c c c d . . . . 
+    . . . . . c c c c c c . . . . . 
+    . . . . . f f . . f f . . . . . 
+    `, SpriteKind.Enemy)]
+let normieArray = [sprites.create(img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . f f f . . . . . . . 
+    . . . . f f f f f f f . . . . . 
+    . . . . f f f f f f f . . . . . 
+    . . . . f d d d d d f . . . . . 
+    . . . . d d f d f d d . . . . . 
+    . . . . . d d d d d . . . . . . 
+    . . . . 8 6 6 6 6 6 8 . . . . . 
+    . . . . 8 6 6 6 6 6 8 . . . . . 
+    . . . . 8 6 8 8 8 6 8 . . . . . 
+    . . . . 8 6 6 6 6 6 8 . . . . . 
+    . . . . d e e e e e d . . . . . 
+    . . . . . e e e e e . . . . . . 
+    . . . . . f f . f f . . . . . . 
+    `, SpriteKind.Enemy), sprites.create(img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . f f f . . . . . . . 
+    . . . . f f f f f f f . . . . . 
+    . . . . f f f f f f f . . . . . 
+    . . . . f d d d d d f . . . . . 
+    . . . . d d f d f d d . . . . . 
+    . . . . . d d d d d . . . . . . 
+    . . . . 8 6 6 6 6 6 8 . . . . . 
+    . . . . 8 6 6 6 6 6 8 . . . . . 
+    . . . . 8 6 8 8 8 6 8 . . . . . 
+    . . . . 8 6 6 6 6 6 8 . . . . . 
+    . . . . d e e e e e d . . . . . 
+    . . . . . e e e e e . . . . . . 
+    . . . . . f f . f f . . . . . . 
     `, SpriteKind.Enemy), sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
@@ -247,7 +348,7 @@ let chad = sprites.create(img`
     . . . . . f f . f f . . . . . . 
     . . . . . . . . . . . . . . . . 
     `, SpriteKind.Enemy)
-virgin = sprites.create(img`
+let virgin = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
@@ -321,9 +422,10 @@ let poop_bazuka = sprites.create(img`
     `, SpriteKind.Projectile)
 mr_goose.y = 15
 virgin.y = 100
+chad2.destroy()
 game.onUpdateInterval(1000, function () {
     enemyIndex2 = randint(0, 2)
-    for (let enemyIndex22 of enemyArray) {
+    for (let enemyIndex22 of virginArray) {
         enemyIndex22.x = randint(-2, 2) * 30
         if (enemyIndex22.x >= 140) {
             enemyIndex22.setPosition(140, enemyIndex22.y)
