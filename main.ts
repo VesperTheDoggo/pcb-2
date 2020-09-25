@@ -30,7 +30,11 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
         PlayerMain.setPosition(140, 15)
     }
 })
+sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, otherSprite) {
+    EnemyMain.destroy()
+})
 let projectile: Sprite = null
+let EnemyMain: Sprite = null
 let PlayerMain: Sprite = null
 scene.setBackgroundImage(img`
     777777777777777777777777777777777dddddddddddddddddffffffffffffffffffffffffffffffffffffffffffffffffddddddddddddddddddd7777777774444477777777777777777777777777777
@@ -281,7 +285,7 @@ PlayerMain = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
     `, SpriteKind.Player)
-let EnemyMain = sprites.create(img`
+EnemyMain = sprites.create(img`
     8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 
     8 . . . . . . 8 . . . . . . . 8 
     8 8 . . . . . 8 . . . . . . . 8 
