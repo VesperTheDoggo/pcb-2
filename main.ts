@@ -70,6 +70,15 @@ let EnemyMain = sprites.create(img`
     `, SpriteKind.Enemy)
 PlayerMain.y = 15
 EnemyMain.y = 100
+game.onUpdateInterval(1000, function () {
+    EnemyMain.x = randint(-2, 2) * 30
+    if (EnemyMain.x >= 140) {
+        EnemyMain.setPosition(140, 100)
+    }
+    if (EnemyMain.x <= 20) {
+        EnemyMain.setPosition(20, 100)
+    }
+})
 forever(function () {
 	
 })
