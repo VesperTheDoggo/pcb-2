@@ -30,8 +30,6 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
         mr_goose.setPosition(140, 15)
     }
 })
-let enemyIndex2 = 0
-let chad2: Sprite = null
 let poop: Sprite = null
 let mr_goose: Sprite = null
 let chadArray = [sprites.create(img`
@@ -420,22 +418,22 @@ let poop_bazuka = sprites.create(img`
     . . f . . . . f 1 f f . . . . . 
     . . . . . . . . f . . . . . . . 
     `, SpriteKind.Projectile)
+poop_bazuka.destroy()
+chad.destroy()
+normies.destroy()
+virgin.destroy()
 mr_goose.y = 15
 virgin.y = 100
-chad2.destroy()
-game.onUpdateInterval(1000, function () {
-    enemyIndex2 = randint(0, 2)
-    for (let enemyIndex22 of virginArray) {
-        enemyIndex22.x = randint(-2, 2) * 30
-        if (enemyIndex22.x >= 140) {
-            enemyIndex22.setPosition(140, enemyIndex22.y)
-        }
-        if (enemyIndex22.x <= 20) {
-            enemyIndex22.setPosition(20, enemyIndex22.y)
-        }
-        enemyIndex22.setVelocity(0, -30)
+pause(500)
+let enemyIndex2 = randint(0, 2)
+for (let enemyIndex22 of virginArray) {
+    enemyIndex22.y = 100
+    enemyIndex22.x = randint(-2, 2) * 30
+    if (enemyIndex22.x >= 140) {
+        enemyIndex22.setPosition(140, enemyIndex22.y)
     }
-})
-game.onUpdateInterval(1000, function () {
-	
-})
+    if (enemyIndex22.x <= 20) {
+        enemyIndex22.setPosition(20, enemyIndex22.y)
+    }
+    enemyIndex22.setVelocity(0, -30)
+}
