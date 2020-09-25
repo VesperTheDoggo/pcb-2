@@ -33,9 +33,62 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, otherSprite) {
     virgin.destroy()
 })
+let enemyIndex = 0
 let poop: Sprite = null
 let virgin: Sprite = null
 let mr_goose: Sprite = null
+let enemyArray = [sprites.create(img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . 5 5 5 5 5 5 5 . . . . . 
+    . . . . 5 d d d d d 5 . . . . . 
+    . . . . 5 d f d f d 5 . . . . . 
+    . . . . d d d d d d d . . . . . 
+    . . . . . d d d d d . . . . . . 
+    . . . . 6 7 7 7 7 7 6 . . . . . 
+    . . . . 6 7 2 2 2 7 6 . . . . . 
+    . . . . 6 7 7 7 7 7 6 . . . . . 
+    . . . . d 8 8 8 8 8 d . . . . . 
+    . . . . . 8 8 8 8 8 . . . . . . 
+    . . . . . f f . f f . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    `, SpriteKind.Enemy), sprites.create(img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . e e e e e e e e . . . . 
+    . . . . e e d d e d e e . . . . 
+    . . . . e d d d d d d e . . . . 
+    . . . . d d f d d f d d . . . . 
+    . . . . . d d d d d d . . . . . 
+    . . . . a b b b b b b a . . . . 
+    . . . . a b b b b b b a . . . . 
+    . . . . a b b b b b b a . . . . 
+    . . . . a b b b b b b a . . . . 
+    . . . . d c c c c c c d . . . . 
+    . . . . . c c c c c c . . . . . 
+    . . . . . f f . . f f . . . . . 
+    `, SpriteKind.Enemy), sprites.create(img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . f f f . . . . . . . 
+    . . . . f f f f f f f . . . . . 
+    . . . . f f f f f f f . . . . . 
+    . . . . f d d d d d f . . . . . 
+    . . . . d d f d f d d . . . . . 
+    . . . . . d d d d d . . . . . . 
+    . . . . 8 6 6 6 6 6 8 . . . . . 
+    . . . . 8 6 6 6 6 6 8 . . . . . 
+    . . . . 8 6 8 8 8 6 8 . . . . . 
+    . . . . 8 6 6 6 6 6 8 . . . . . 
+    . . . . d e e e e e d . . . . . 
+    . . . . . e e e e e . . . . . . 
+    . . . . . f f . f f . . . . . . 
+    `, SpriteKind.Enemy)]
 scene.setBackgroundImage(img`
     777777777777777777777777777777777dddddddddddddddddffffffffffffffffffffffffffffffffffffffffffffffffddddddddddddddddddd7777777774444477777777777777777777777777777
     777777777777777777777777777777777dddddddddddddddddffffffffffffffffffffffffffffffffffffffffffffffffddddddddddddddddddd7777777774444477777777777777777777777777777
@@ -269,11 +322,18 @@ let poop_bazuka = sprites.create(img`
 mr_goose.y = 15
 virgin.y = 100
 game.onUpdateInterval(1000, function () {
-    virgin.x = randint(-2, 2) * 30
-    if (virgin.x >= 140) {
-        virgin.setPosition(140, 100)
+    enemyIndex = randint(0, 2)
+    for (let enemyIndex of enemyArray) {
+        enemyIndex.x = randint(-2, 2) * 30
+        if (enemyIndex.x >= 140) {
+            enemyIndex.setPosition(140, 100)
+        }
+        if (enemyIndex.x <= 20) {
+            enemyIndex.setPosition(20, 100)
+        }
+        enemyIndex.setVelocity(0, -30)
     }
-    if (virgin.x <= 20) {
-        virgin.setPosition(20, 100)
-    }
+})
+game.onUpdateInterval(1000, function () {
+	
 })
