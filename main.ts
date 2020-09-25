@@ -18,6 +18,18 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         . . . . . . . . . . . . . . . . 
         `, PlayerMain, 0, 50)
 })
+controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
+    PlayerMain.x += -30
+    if (true) {
+    	
+    }
+})
+controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
+    PlayerMain.x += 30
+    if (true) {
+    	
+    }
+})
 let projectile: Sprite = null
 let PlayerMain: Sprite = null
 PlayerMain = sprites.create(img`
