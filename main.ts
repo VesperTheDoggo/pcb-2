@@ -1,22 +1,5 @@
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    poop = sprites.createProjectileFromSprite(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . f . . . . . . . . . 
-        . . . . . f 1 f . . . . . . . . 
-        . . . . f 1 1 1 f . . . . . . . 
-        . . . f 1 1 1 1 1 f . . . . . . 
-        . . . . f f f f f . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        `, mr_goose, 0, 50)
+	
 })
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     mr_goose.x += -30
@@ -30,8 +13,17 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
         mr_goose.setPosition(140, 15)
     }
 })
-let poop: Sprite = null
+let chadInitalSpeed = 0
+let chadSpeed = 0
+let virginInitalSpeed2 = 0
+let virginSpeed2 = 0
+let normInitalSpeed = 0
+let normSpeed = 0
+let poopTimer = 0
 let mr_goose: Sprite = null
+let chadDeaths = 0
+let virginDeaths = 0
+let normieDeath = 0
 scene.setBackgroundImage(img`
     777777777777777777777777777777777dddddddddddddddddffffffffffffffffffffffffffffffffffffffffffffffffddddddddddddddddddd7777777774444477777777777777777777777777777
     777777777777777777777777777777777dddddddddddddddddffffffffffffffffffffffffffffffffffffffffffffffffddddddddddddddddddd7777777774444477777777777777777777777777777
@@ -226,7 +218,7 @@ let normies = sprites.create(img`
     . . . . . e e e e e . . . . . . 
     . . . . . f f . f f . . . . . . 
     `, SpriteKind.Enemy)
-poop = sprites.create(img`
+let poop = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
@@ -269,21 +261,52 @@ mr_goose.setPosition(80, 15)
 normies.setPosition(80, 100)
 virgin.setPosition(80, 100)
 chad.setPosition(80, 100)
-let chadDeaths = 0
-let virginDeaths = 0
-let normieDeath = 0
 chad.x += randint(-2, 2) * 30
 virgin.x += randint(-2, 2) * 30
 normies.x += randint(-2, 2) * 30
 forever(function () {
-    chad.setVelocity(0, -10)
-    if (true) {
-    	
+    console.log(poopTimer)
+    if (poopTimer == 0) {
+        pause(500)
+        poopTimer = 1
+    }
+    if (poopTimer == 1 && controller.A.isPressed()) {
+        poop = sprites.createProjectileFromSprite(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . f . . . . . . . . . 
+            . . . . . f 1 f . . . . . . . . 
+            . . . . f 1 1 1 f . . . . . . . 
+            . . . f 1 1 1 1 1 f . . . . . . 
+            . . . . f f f f f . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `, mr_goose, 0, 50)
+        poopTimer = 0
     }
 })
 forever(function () {
-    normies.setVelocity(0, -10)
+    normSpeed = 3
+    normInitalSpeed = 0.5
+    normies.setVelocity(0, 0 - (normInitalSpeed + normSpeed * 1 * game.runtime() / 300))
 })
 forever(function () {
-    virgin.setVelocity(0, -10)
+    virginSpeed2 = 3
+    virginInitalSpeed2 = 0.5
+    virgin.setVelocity(0, 0 - (virginInitalSpeed2 + virginSpeed2 * 0.5 * game.runtime() / 300))
+})
+forever(function () {
+    chadSpeed = 3
+    chadInitalSpeed = 0.5
+    chad.setVelocity(0, 0 - (chadInitalSpeed + chadSpeed * 1.5 * game.runtime() / 100))
+    if (true) {
+    	
+    }
 })
