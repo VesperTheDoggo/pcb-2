@@ -20,14 +20,14 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
 })
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     PlayerMain.x += -30
-    if (true) {
-    	
+    if (PlayerMain.x <= 20) {
+        PlayerMain.setPosition(20, 15)
     }
 })
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     PlayerMain.x += 30
-    if (true) {
-    	
+    if (PlayerMain.x >= 140) {
+        PlayerMain.setPosition(140, 15)
     }
 })
 let projectile: Sprite = null
