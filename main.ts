@@ -1,5 +1,22 @@
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-	
+    poop = sprites.createProjectileFromSprite(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . f . . . . . . . . . 
+        . . . . . f 1 f . . . . . . . . 
+        . . . . f 1 1 1 f . . . . . . . 
+        . . . f 1 1 1 1 1 f . . . . . . 
+        . . . . f f f f f . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `, mr_goose, 0, 50)
 })
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     mr_goose.x += -30
@@ -13,17 +30,21 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
         mr_goose.setPosition(140, 15)
     }
 })
-let chadInitalSpeed = 0
-let chadSpeed = 0
-let virginInitalSpeed2 = 0
-let virginSpeed2 = 0
-let normInitalSpeed = 0
-let normSpeed = 0
-let poopTimer = 0
+sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, otherSprite) {
+    sprite.destroy()
+    otherSprite.setPosition(80, 100)
+    otherSprite.x += randint(-2, 2) * 30
+    otherSprite.y = 120
+    info.changeScoreBy(1)
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
+    game.over(false)
+})
+let poop: Sprite = null
 let mr_goose: Sprite = null
-let chadDeaths = 0
-let virginDeaths = 0
 let normieDeath = 0
+let virginDeaths = 0
+let chadDeaths = 0
 scene.setBackgroundImage(img`
     777777777777777777777777777777777dddddddddddddddddffffffffffffffffffffffffffffffffffffffffffffffffddddddddddddddddddd7777777774444477777777777777777777777777777
     777777777777777777777777777777777dddddddddddddddddffffffffffffffffffffffffffffffffffffffffffffffffddddddddddddddddddd7777777774444477777777777777777777777777777
@@ -146,6 +167,66 @@ scene.setBackgroundImage(img`
     777777777777777777777777777777777dddddddddddddddddfffffffffffffffffffff55555ffffffffffffffffffffffddddddddddddddddddd7777777777777777777777777777777777777777777
     777777777777777777777777777777777dddddddddddddddddfffffffffffffffffffff55555ffffffffffffffffffffffddddddddddddddddddd7777777777777777777777777777777777777777777
     `)
+let chad2 = sprites.create(img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . 5 5 5 5 5 5 5 . . . . . 
+    . . . . 5 d d d d d 5 . . . . . 
+    . . . . 5 d f d f d 5 . . . . . 
+    . . . . d d d d d d d . . . . . 
+    . . . . . d d d d d . . . . . . 
+    . . . . 6 7 7 7 7 7 6 . . . . . 
+    . . . . 6 7 2 2 2 7 6 . . . . . 
+    . . . . 6 7 7 7 7 7 6 . . . . . 
+    . . . . d 8 8 8 8 8 d . . . . . 
+    . . . . . 8 8 8 8 8 . . . . . . 
+    . . . . . f f . f f . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    `, SpriteKind.Enemy)
+let virgin2 = sprites.create(img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . e e e e e e e e . . . . 
+    . . . . e e d d e d e e . . . . 
+    . . . . e d d d d d d e . . . . 
+    . . . . d d f d d f d d . . . . 
+    . . . . . d d d d d d . . . . . 
+    . . . . a b b b b b b a . . . . 
+    . . . . a b b b b b b a . . . . 
+    . . . . a b b b b b b a . . . . 
+    . . . . a b b b b b b a . . . . 
+    . . . . d c c c c c c d . . . . 
+    . . . . . c c c c c c . . . . . 
+    . . . . . f f . . f f . . . . . 
+    `, SpriteKind.Enemy)
+let normies2 = sprites.create(img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . f f f . . . . . . . 
+    . . . . f f f f f f f . . . . . 
+    . . . . f f f f f f f . . . . . 
+    . . . . f d d d d d f . . . . . 
+    . . . . d d f d f d d . . . . . 
+    . . . . . d d d d d . . . . . . 
+    . . . . 8 6 6 6 6 6 8 . . . . . 
+    . . . . 8 6 6 6 6 6 8 . . . . . 
+    . . . . 8 6 8 8 8 6 8 . . . . . 
+    . . . . 8 6 6 6 6 6 8 . . . . . 
+    . . . . d e e e e e d . . . . . 
+    . . . . . e e e e e . . . . . . 
+    . . . . . f f . f f . . . . . . 
+    `, SpriteKind.Enemy)
+normies2.setPosition(80, 130)
+virgin2.setPosition(80, 130)
+chad2.setPosition(80, 130)
+chad2.x += randint(-2, 2) * 30
+virgin2.x += randint(-2, 2) * 30
+normies2.x += randint(-2, 2) * 30
 mr_goose = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
@@ -218,7 +299,7 @@ let normies = sprites.create(img`
     . . . . . e e e e e . . . . . . 
     . . . . . f f . f f . . . . . . 
     `, SpriteKind.Enemy)
-let poop = sprites.create(img`
+poop = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
@@ -256,57 +337,55 @@ let poop_bazuka = sprites.create(img`
     `, SpriteKind.Projectile)
 poop.destroy()
 poop_bazuka.destroy()
-virgin.y = 100
 mr_goose.setPosition(80, 15)
-normies.setPosition(80, 100)
-virgin.setPosition(80, 100)
-chad.setPosition(80, 100)
+normies.setPosition(80, 130)
+virgin.setPosition(80, 130)
+chad.setPosition(80, 130)
 chad.x += randint(-2, 2) * 30
 virgin.x += randint(-2, 2) * 30
 normies.x += randint(-2, 2) * 30
+info.setScore(0)
+let chadSpeed = 0.5
+let normSpeed = 0.35
+let virginSpeed = 0.2
 forever(function () {
-    console.log(poopTimer)
-    if (poopTimer == 0) {
-        pause(500)
-        poopTimer = 1
-    }
-    if (poopTimer == 1 && controller.A.isPressed()) {
-        poop = sprites.createProjectileFromSprite(img`
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . f . . . . . . . . . 
-            . . . . . f 1 f . . . . . . . . 
-            . . . . f 1 1 1 f . . . . . . . 
-            . . . f 1 1 1 1 1 f . . . . . . 
-            . . . . f f f f f . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            `, mr_goose, 0, 50)
-        poopTimer = 0
+    virgin.setVelocity(0, 0 - (virginSpeed + game.runtime() * 0.5 / 300))
+    if (virgin.y == 15) {
+        game.over(false, effects.blizzard)
     }
 })
 forever(function () {
-    normSpeed = 3
-    normInitalSpeed = 0.5
-    normies.setVelocity(0, 0 - (normInitalSpeed + normSpeed * 1 * game.runtime() / 300))
+    pause(10000)
+    chad2.setVelocity(0, 0 - (chadSpeed + game.runtime() * 1.5 / 300))
+    if (chad2.y == 15) {
+        game.over(false, effects.blizzard)
+    }
 })
 forever(function () {
-    virginSpeed2 = 3
-    virginInitalSpeed2 = 0.5
-    virgin.setVelocity(0, 0 - (virginInitalSpeed2 + virginSpeed2 * 0.5 * game.runtime() / 300))
+    pause(7500)
+    normies2.setVelocity(0, 0 - (normSpeed + game.runtime() * 1 / 300))
+    if (normies2.y == 15) {
+        game.over(false, effects.blizzard)
+    }
 })
 forever(function () {
-    chadSpeed = 3
-    chadInitalSpeed = 0.5
-    chad.setVelocity(0, 0 - (chadInitalSpeed + chadSpeed * 1.5 * game.runtime() / 100))
-    if (true) {
-    	
+    pause(5000)
+    virgin2.setVelocity(0, 0 - (virginSpeed + game.runtime() * 0.5 / 300))
+    if (virgin2.y == 15) {
+        game.over(false, effects.blizzard)
+    }
+})
+forever(function () {
+    pause(5000)
+    chad.setVelocity(0, 0 - (chadSpeed + game.runtime() * 1.5 / 300))
+    if (chad.y == 15) {
+        game.over(false, effects.blizzard)
+    }
+})
+forever(function () {
+    pause(2000)
+    normies.setVelocity(0, 0 - (normSpeed + game.runtime() * 1 / 300))
+    if (normies.y == 15) {
+        game.over(false, effects.blizzard)
     }
 })
