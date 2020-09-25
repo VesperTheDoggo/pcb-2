@@ -273,12 +273,17 @@ let chadDeaths = 0
 let virginDeaths = 0
 let normieDeath = 0
 chad.x += randint(-2, 2) * 30
+virgin.x += randint(-2, 2) * 30
+normies.x += randint(-2, 2) * 30
 forever(function () {
-	
+    chad.setVelocity(0, -10)
+    if (true) {
+    	
+    }
 })
 forever(function () {
-	
+    normies.setVelocity(0, -10)
 })
 forever(function () {
-	
+    virgin.setVelocity(0, -10)
 })
